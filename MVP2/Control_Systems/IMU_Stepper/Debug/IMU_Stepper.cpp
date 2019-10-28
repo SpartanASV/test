@@ -9,43 +9,30 @@
 #include <Servo.h>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #define BNO055_SAMPLERATE_DELAY_MS (100)
 void calibrate(void);
 void setHeading(void);
 void setup(void);
 void loop(void);
 
-#line 24
+#line 10
 const int stepsPerRevolution = 100;  
-                                     
+                                    
 
+ 
 
 Stepper myStepper(stepsPerRevolution, 34,35,36,37);
 
 int stepCount = 0;         
-
 double heading;
 
-byte servoPin = 31;
-Servo servo;
+byte servoPin = 31; 
+Servo servo;       
 
 
 
 Adafruit_BNO055 bno = Adafruit_BNO055(-1, 0x28);
+
 
 void calibrate(void)
 {
@@ -87,6 +74,7 @@ void calibrate(void)
   }
 }
 
+
 void setHeading(void){
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
 
@@ -117,22 +105,19 @@ void setup(void)
   delay(1000);
 
   
-  int8_t temp = bno.getTemp();
-  Serial.print("Current Temperature: ");
-  Serial.print(temp);
-  Serial.println(" C");
-  Serial.println("");
-
   bno.setExtCrystalUse(true);
 
+  
   Serial.println("Calibration status values: 0=uncalibrated, 3=fully calibrated");
   calibrate();
   Serial.println("Calibration completed.  heading will be set in 5 seconds");
+
+  
   delay(5000);
   setHeading();
   Serial.print("Heading set to: x = ");
   Serial.println(heading);
-  delay(1000);
+
   myStepper.setSpeed(100);
 
   servo.attach(servoPin);
