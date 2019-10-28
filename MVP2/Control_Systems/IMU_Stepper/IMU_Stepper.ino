@@ -20,8 +20,8 @@ double heading;
 byte servoPin = 31; //pin that thruster esc is connected to
 Servo servo;       // esc is controlled as a servo
 
-// Check I2C device address and correct line below (id, address)
-//                                                  by default address is 0x29 or 0x28
+ // Check I2C device address and correct line below (id, address)
+//                                                   by default address is 0x29 or 0x28
 Adafruit_BNO055 bno = Adafruit_BNO055(-1, 0x28);
 
 //calibrate the IMU on startup.
@@ -29,16 +29,16 @@ void calibrate(void)
 {
   while(1){
 
-  // Possible vector values can be:
-  // - VECTOR_ACCELEROMETER - m/s^2
-  // - VECTOR_MAGNETOMETER  - uT
-  // - VECTOR_GYROSCOPE     - rad/s
-  // - VECTOR_EULER         - degrees
-  // - VECTOR_LINEARACCEL   - m/s^2
-  // - VECTOR_GRAVITY       - m/s^2
+       // Possible vector values can be:
+      //  - VECTOR_ACCELEROMETER - m/s^2
+     //   - VECTOR_MAGNETOMETER  - uT
+    //    - VECTOR_GYROSCOPE     - rad/s
+   //     - VECTOR_EULER         - degrees
+  //      - VECTOR_LINEARACCEL   - m/s^2
+ //       - VECTOR_GRAVITY       - m/s^2
   imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
 
-  /* Display the floating point data */
+  // Display the floating point data 
   Serial.print("X: ");
   Serial.print(euler.x());
   Serial.print(" Y: ");
@@ -97,7 +97,7 @@ void setup(void)
 
   delay(500);
 
-  //do a thing that Scott doesn't know what it does ¯\_(:|)_/¯
+  //do a thing that Scott doesn't know what it does ï¿½\_(:|)_/ï¿½
   bno.setExtCrystalUse(true);
 
   //calibrate IMU
@@ -149,9 +149,9 @@ void loop(void){
     // remember the previous value of the sensor
     previous = correction;
 
-//    flag = sig<1200?0:flag;
-//    flag = sig>1800?1:flag;
-//    sig = flag?sig-1:sig+1;
+  //    flag = sig<1200?0:flag;
+ //     flag = sig>1800?1:flag;
+//      sig = flag?sig-1:sig+1;
     sig = 1500;
 
     Serial.println(sig);
